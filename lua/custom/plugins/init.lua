@@ -19,6 +19,13 @@ return {
             return false
           end,
         },
+        use_default_keymaps = false,
+        keymaps = {
+          ["<CR>"] = "actions.select",
+          ["-"] = "actions.parent",
+          ["<C-c>"] = "actions.close",
+
+        }
       })
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
@@ -29,7 +36,7 @@ return {
   {
     "nvim-neorg/neorg",
     -- lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    ft = "norg", -- lazyload on filetype
+    ft = "norg",   -- lazyload on filetype
     version = "*", -- Pin Neorg to the latest stable release
     config = true,
   },
@@ -76,7 +83,7 @@ return {
       require('lualine').setup {
         options = {
           icons_enabled = true,
-          theme = 'catppuccin',
+          theme = 'rose-pine',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
