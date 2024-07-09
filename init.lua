@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true 
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -133,7 +133,7 @@ vim.opt.updatetime = 50
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 1500 
+vim.opt.timeoutlen = 1500
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -238,7 +238,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -325,7 +325,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -353,11 +353,14 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          -- mappings = {
+          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          -- },
+          layout_config = {
+            vertical = { width = 0.5 },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -418,11 +421,20 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          notification = {
+            window = {
+              winblend = 0 -- make fidget background transparent
+            },
+          },
+        }
+      },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -485,7 +497,7 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          -- map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
@@ -543,6 +555,7 @@ require('lazy').setup({
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+              print("hints")
             end, '[T]oggle Inlay [H]ints')
           end
         end,
@@ -567,7 +580,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        pyright = {},
+        basedpyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -632,7 +645,7 @@ require('lazy').setup({
       vim.keymap.set("", "<leader>f", function()
         require("conform").format({ async = true, lsp_fallback = true })
       end)
-    end, 
+    end,
     opts = {
       notify_on_error = false,
       -- format_on_save = function(bufnr)
@@ -777,10 +790,20 @@ require('lazy').setup({
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      function SetColor(color)
+        color = color or "catppuccin" -- have a default value
+        vim.cmd.colorscheme(color)
+
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
+      end
+
+      SetColor("catppuccin-mocha") -- run at startup
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'catppuccin-mocha'
+      -- vim.cmd.colorscheme 'catppuccin-mocha'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -913,9 +936,9 @@ vim.opt.shiftround = true -- round indent to sw compatible
 vim.opt.expandtab = true
 
 -- cycle through buffers
-vim.keymap.set({'n', 'v'}, "<leader>h", vim.cmd.bprevious)
-vim.keymap.set({'n', 'v'}, "<leader>l", vim.cmd.bnext)
-vim.keymap.set({'n', 'v'}, "<leader>q", vim.cmd.bdelete)
+vim.keymap.set({ 'n', 'v' }, "<leader>h", vim.cmd.bprevious)
+vim.keymap.set({ 'n', 'v' }, "<leader>l", vim.cmd.bnext)
+vim.keymap.set({ 'n', 'v' }, "<leader>q", vim.cmd.bdelete)
 
 
 -- move lines up and down

@@ -28,7 +28,8 @@ return {
   },
   {
     "nvim-neorg/neorg",
-    lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    -- lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    ft = "norg", -- lazyload on filetype
     version = "*", -- Pin Neorg to the latest stable release
     config = true,
   },
@@ -36,6 +37,7 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
     config = function()
       local harpoon = require("harpoon")
       harpoon:setup()
@@ -50,15 +52,18 @@ return {
   },
   {
     "numToStr/FTerm.nvim",
+    event = "VeryLazy",
     config = function()
       vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
       vim.api.nvim_set_keymap('t', '<C-c>', '<C-\\><C-n>', { noremap = true })
+      vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
       vim.keymap.set({ 'n', 't' }, "<C-\\>", vim.cmd.FTermToggle)
     end
   },
   {
     "VonHeikemen/searchbox.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
+    event = "VeryLazy",
     config = function()
       vim.keymap.set("n", "<leader>r", vim.cmd.SearchBoxReplace)
       vim.keymap.set("n", "<leader>R", ":SearchBoxReplace confirm=menu <CR>")
