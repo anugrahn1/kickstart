@@ -580,7 +580,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        basedpyright = {},
+        pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -811,9 +811,9 @@ require('lazy').setup({
         color = color or "catppuccin" -- have a default value
         vim.cmd.colorscheme(color)
 
-        -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-        -- vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
       end
 
       SetColor("rose-pine") -- run at startup
@@ -961,3 +961,14 @@ vim.keymap.set({ 'n', 'v' }, "<leader>q", vim.cmd.bdelete)
 -- move lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+
+-- returns cursor to where the file was closed
+vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+  desc = 'return cursor to where it was last time closing the file',
+  pattern = '*',
+  command = 'silent! normal! g`"zv',
+})
+
+-- Run code
+vim.keymap.set("n", "<leader>rc", ":RunCode<CR>")
