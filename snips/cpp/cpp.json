@@ -1,0 +1,14 @@
+{
+  "dsa start": {
+    "prefix": "dsa",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "int main() {",
+      "",
+      "  return 0;",
+      "}"
+    ],
+    "description": "template for dsa problems"
+  }
+}

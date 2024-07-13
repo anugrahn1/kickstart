@@ -696,6 +696,7 @@ require('lazy').setup({
             'rafamadriz/friendly-snippets',
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
+
             end,
           },
         },
@@ -972,3 +973,7 @@ vim.api.nvim_create_autocmd({'BufWinEnter'}, {
 
 -- Run code
 vim.keymap.set("n", "<leader>rc", ":RunCode<CR>")
+
+
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+
