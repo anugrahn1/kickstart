@@ -1,8 +1,9 @@
 -- You can add your own plugins here or in other files in this directory!
 --  I promise not to create any merge conflicts in this directory :)
---
 -- See the kickstart.nvim README for more information
+
 return {
+
   {
     'stevearc/oil.nvim',
     config = function()
@@ -33,6 +34,7 @@ return {
     dependencies = { "echasnovski/mini.icons" },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
+
   {
     "nvim-neorg/neorg",
     -- lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
@@ -55,6 +57,7 @@ return {
       })
     end,
   },
+
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -72,6 +75,7 @@ return {
       vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
     end,
   },
+
   {
     "numToStr/FTerm.nvim",
     event = "VeryLazy",
@@ -82,6 +86,7 @@ return {
       vim.keymap.set({ 'n', 't' }, "<C-\\>", vim.cmd.FTermToggle)
     end
   },
+
   {
     "VonHeikemen/searchbox.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
@@ -91,6 +96,7 @@ return {
       vim.keymap.set("n", "<leader>R", ":SearchBoxReplace confirm=menu <CR>")
     end,
   },
+
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -137,6 +143,7 @@ return {
       }
     end
   },
+
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -174,7 +181,38 @@ return {
       },
     },
   },
-  { "CRAG666/code_runner.nvim", config = true },
 
+  {
+    "CRAG666/code_runner.nvim",
+    config = true
+  },
+
+  {
+    'echasnovski/mini.basics',
+    version = false,
+    opts = {
+      options = {
+        basic = false
+      },
+      mappings = {
+        basic = true,
+      },
+      autocommands = {
+        basic = false
+      },
+    },
+  },
+
+  {
+    'echasnovski/mini.ai',
+    version = false,
+    opts = {}
+  },
+
+  {
+    'echasnovski/mini.surround',
+    version = false,
+    opts = {}
+  },
 
 }

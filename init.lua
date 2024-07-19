@@ -93,6 +93,7 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.opt.termguicolors = true
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -697,6 +698,8 @@ require('lazy').setup({
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
 
+              -- custom snippets
+              require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
             end,
           },
         },
@@ -791,7 +794,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          {name = 'codeium'},
+          { name = 'codeium' },
         },
       }
     end,
@@ -802,32 +805,36 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    -- 'folke/tokyonight.nvim',
-    -- 'catppuccin/nvim',
+  --   -- 'folke/tokyonight.nvim',
     'rose-pine/neovim',
     as = "rose-pine",
+  --   -- "ramojus/mellifluous.nvim",
+  --   -- "rebelot/kanagawa.nvim",
+  --   -- "neanias/everforest-nvim",
+  --   -- 'AlexvZyl/nordic.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       function SetColor(color)
         color = color or "catppuccin" -- have a default value
         vim.cmd.colorscheme(color)
 
-        -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
+        vim.api.nvim_set_hl(0,"TelescopeNormal",{bg="none"})
       end
 
       SetColor("rose-pine") -- run at startup
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'catppuccin-mocha'
-
-      -- You can configure highlights by doing something like:
+  --   --   -- Load the colorscheme here.
+  --   --   -- Like many other themes, this one has different styles, and you could load
+  --   --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --   --   -- vim.cmd.colorscheme 'catppuccin-mocha'
+  --   --
+  --   --   -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
-
+  --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -965,7 +972,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 
 -- returns cursor to where the file was closed
-vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
   desc = 'return cursor to where it was last time closing the file',
   pattern = '*',
   command = 'silent! normal! g`"zv',
@@ -974,6 +981,23 @@ vim.api.nvim_create_autocmd({'BufWinEnter'}, {
 -- Run code
 vim.keymap.set("n", "<leader>rc", ":RunCode<CR>")
 
+-- Navigation in Insert Mode - Taken from mini.basics
+--
+-- Move only sideways in command mode. Using `silent = false` makes movements
+-- to be immediately shown.
+vim.keymap.set('c', '<C-M-h>', '<Left>', { silent = false, desc = 'Left' })
+vim.keymap.set('c', '<C-M-l>', '<Right>', { silent = false, desc = 'Right' })
 
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+-- Don't `noremap` in insert mode to have these keybindings behave exactly
+-- like arrows (crucial inside TelescopePrompt)
+vim.keymap.set('i', '<C-M-h>', '<Left>', { noremap = false, desc = 'Left' })
+vim.keymap.set('i', '<C-M-j>', '<Down>', { noremap = false, desc = 'Down' })
+vim.keymap.set('i', '<C-M-k>', '<Up>', { noremap = false, desc = 'Up' })
+vim.keymap.set('i', '<C-M-l>', '<Right>', { noremap = false, desc = 'Right' })
+
+vim.keymap.set('t', '<C-M-h>', '<Left>', { desc = 'Left' })
+vim.keymap.set('t', '<C-M-j>', '<Down>', { desc = 'Down' })
+vim.keymap.set('t', '<C-M-k>', '<Up>', { desc = 'Up' })
+vim.keymap.set('t', '<C-M-l>', '<Right>', { desc = 'Right' })
+
 
