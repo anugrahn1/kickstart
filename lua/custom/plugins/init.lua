@@ -214,5 +214,12 @@ return {
     version = false,
     opts = {}
   },
+  {
+    'mbbill/undotree',
+    keys = {
+      {"<leader>ut", ":UndotreeToggle<CR>", desc = "Toggle UndoTree" }
+    },
+    opts = {}
+  },
 
 }

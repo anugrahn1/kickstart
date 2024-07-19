@@ -967,8 +967,8 @@ vim.keymap.set({ 'n', 'v' }, "<leader>q", vim.cmd.bdelete)
 
 
 -- move lines up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent=true})
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {silent=true})
 
 
 -- returns cursor to where the file was closed
@@ -1000,4 +1000,8 @@ vim.keymap.set('t', '<C-M-j>', '<Down>', { desc = 'Down' })
 vim.keymap.set('t', '<C-M-k>', '<Up>', { desc = 'Up' })
 vim.keymap.set('t', '<C-M-l>', '<Right>', { desc = 'Right' })
 
-
+-- custom line textobject
+vim.cmd("xnoremap <silent> il :<c-u>normal! $v^<cr>")
+vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
+vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
+vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
