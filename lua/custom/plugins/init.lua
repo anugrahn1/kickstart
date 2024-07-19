@@ -3,6 +3,27 @@
 -- See the kickstart.nvim README for more information
 
 return {
+  {
+    "rose-pine/neovim",
+    as = "rose-pine",
+    config = function()
+      require("rose-pine").setup({
+        highlight_groups = {
+          TelescopeBorder = { fg = "highlight_high", bg = "none" },
+          TelescopeNormal = { bg = "none" },
+          TelescopePromptNormal = { bg = "base" },
+          TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+          TelescopeSelection = { fg = "text", bg = "base" },
+          TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+          StatusLine = { fg = "love", bg = "love", blend = 10 },
+          StatusLineNC = { fg = "subtle", bg = "surface" },
+          vim.api.nvim_set_hl(0, "Normal", { bg = "none" }),
+          vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" }),
+          vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" }),
+        },
+      })
+    end
+  },
 
   {
     'stevearc/oil.nvim',
@@ -100,6 +121,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- event = "ColorScheme",
     config = function()
       require('lualine').setup {
         options = {
@@ -206,7 +228,7 @@ return {
   {
     'echasnovski/mini.ai',
     version = false,
-    opts = {}
+    opts = {},
   },
 
   {
@@ -217,9 +239,9 @@ return {
   {
     'mbbill/undotree',
     keys = {
-      {"<leader>ut", ":UndotreeToggle<CR>", desc = "Toggle UndoTree" }
+      { "<leader>ut", ":UndotreeToggle<CR>", desc = "Toggle UndoTree" }
     },
     opts = {}
   },
-
+  
 }

@@ -93,6 +93,7 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+
 vim.opt.termguicolors = true
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -700,6 +701,8 @@ require('lazy').setup({
 
               -- custom snippets
               require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+
+              require'luasnip'.filetype_extend(".ejs", {"ejs"})
             end,
           },
         },
@@ -806,33 +809,34 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   --   -- 'folke/tokyonight.nvim',
-    'rose-pine/neovim',
-    as = "rose-pine",
+    -- 'rose-pine/neovim',
+    -- as = "rose-pine",
   --   -- "ramojus/mellifluous.nvim",
   --   -- "rebelot/kanagawa.nvim",
   --   -- "neanias/everforest-nvim",
   --   -- 'AlexvZyl/nordic.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      function SetColor(color)
-        color = color or "catppuccin" -- have a default value
-        vim.cmd.colorscheme(color)
-
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-        vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
-        vim.api.nvim_set_hl(0,"TelescopeNormal",{bg="none"})
-      end
-
-      SetColor("rose-pine") -- run at startup
-  --   --   -- Load the colorscheme here.
-  --   --   -- Like many other themes, this one has different styles, and you could load
-  --   --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --   --   -- vim.cmd.colorscheme 'catppuccin-mocha'
-  --   --
-  --   --   -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
+    -- "0xstepit/flow.nvim",
+    -- priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- opts = {}
+    -- init = function()
+    --   function SetColor(color)
+    --     color = color or "catppuccin" -- have a default value
+    --     vim.cmd.colorscheme(color)
+    --
+    --     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    --     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    --     vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
+    --     vim.api.nvim_set_hl(0,"TelescopeNormal",{bg="none"})
+    --   end
+    --
+    --   SetColor("flow") -- run at startup
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   -- vim.cmd.colorscheme 'catppuccin-mocha'
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
   },
   --
   -- Highlight todo, notes, etc in comments
@@ -1005,3 +1009,5 @@ vim.cmd("xnoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
 vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
+
+
