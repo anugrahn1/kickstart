@@ -3,30 +3,67 @@
 -- See the kickstart.nvim README for more information
 
 return {
+  --   {
+  --     "rose-pine/neovim",
+  --     as = "rose-pine",
+  --     config = function()
+  --       require("rose-pine").setup({
+  --         highlight_groups = {
+  --           TelescopeBorder = { fg = "highlight_high", bg = "none" },
+  --           TelescopeNormal = { bg = "none" },
+  --           TelescopePromptNormal = { bg = "base" },
+  --           TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+  --           TelescopeSelection = { fg = "text", bg = "base" },
+  --           TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+  --           StatusLine = { fg = "love", bg = "love", blend = 10 },
+  --           StatusLineNC = { fg = "subtle", bg = "surface" },
+  --           vim.api.nvim_set_hl(0, "Normal", { bg = "none" }),
+  --           vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" }),
+  --           vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" }),
+  --         },
+  --       })
+  --     end
+  --   },
+  -- {
+  --   "scottmckendry/cyberdream.nvim",
+  --   lazy = false,
+  --   enabled = false,
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme("cyberdream")
+  --   end,
+  --   opts = {
+  --     transparent = true,
+  --     italic_comments = true,
+  --     hide_fill_chars = true,
+  --   }
+  -- },
   {
-    "rose-pine/neovim",
-    as = "rose-pine",
+    "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    priority = 1000,
+    enabled = false,
+    config = true,
+    init = function()
+      vim.o.background = "dark"
+      vim.cmd.colorscheme("gruvbox")
+    end,
+    opts = {},
+  },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
     config = function()
-      require("rose-pine").setup({
-        highlight_groups = {
-          TelescopeBorder = { fg = "highlight_high", bg = "none" },
-          TelescopeNormal = { bg = "none" },
-          TelescopePromptNormal = { bg = "base" },
-          TelescopeResultsNormal = { fg = "subtle", bg = "none" },
-          TelescopeSelection = { fg = "text", bg = "base" },
-          TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
-          StatusLine = { fg = "love", bg = "love", blend = 10 },
-          StatusLineNC = { fg = "subtle", bg = "surface" },
-          vim.api.nvim_set_hl(0, "Normal", { bg = "none" }),
-          vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" }),
-          vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" }),
-        },
-      })
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      vim.g.gruvbox_material_enable_italic = true
+      vim.cmd.colorscheme('gruvbox-material')
     end
   },
-
   {
     'stevearc/oil.nvim',
+    event = "VeryLazy",
     config = function()
       require("oil").setup({
         view_options = {
@@ -122,11 +159,12 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     -- event = "ColorScheme",
+    event = "VeryLazy",
     config = function()
       require('lualine').setup {
         options = {
           icons_enabled = true,
-          theme = 'rose-pine',
+          theme = 'auto',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
@@ -169,6 +207,7 @@ return {
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
+    event = "VeryLazy",
     cmd = "Trouble",
     keys = {
       {
@@ -206,11 +245,13 @@ return {
 
   {
     "CRAG666/code_runner.nvim",
+    event = "VeryLazy",
     config = true
   },
 
   {
     'echasnovski/mini.basics',
+    event = "VeryLazy",
     version = false,
     opts = {
       options = {
@@ -227,12 +268,14 @@ return {
 
   {
     'echasnovski/mini.ai',
+    event = "VeryLazy",
     version = false,
     opts = {},
   },
 
   {
     'echasnovski/mini.surround',
+    event = "VeryLazy",
     version = false,
     opts = {}
   },
@@ -241,7 +284,24 @@ return {
     keys = {
       { "<leader>ut", ":UndotreeToggle<CR>", desc = "Toggle UndoTree" }
     },
+    config = function()
+      -- require('undotree').setup({})
+    end,
+  },
+  {
+    "leath-dub/snipe.nvim",
+    event = "VeryLazy",
+    config = function()
+      local snipe = require("snipe")
+      snipe.setup()
+      vim.keymap.set("n", "<leader>b", snipe.create_buffer_menu_toggler())
+    end
+  },
+  {
+    'echasnovski/mini.splitjoin',
+    event = "VeryLazy",
+    version = false,
     opts = {}
   },
-  
+
 }

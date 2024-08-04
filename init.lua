@@ -240,7 +240,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim',        opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -363,7 +363,11 @@ require('lazy').setup({
             vertical = { width = 0.5 },
           },
         },
-        -- pickers = {}
+        pickers = {
+          colorscheme = {
+            enable_preview = true
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -415,6 +419,7 @@ require('lazy').setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = "VeryLazy",
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
@@ -425,6 +430,7 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
+        event = "VeryLazy",
         opts = {
           notification = {
             window = {
@@ -642,7 +648,9 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    lazy = false,
+    -- lazy = false,
+
+    event = "VeryLazy",
     config = function()
       vim.keymap.set("", "<leader>f", function()
         require("conform").format({ async = true, lsp_fallback = true })
@@ -702,7 +710,7 @@ require('lazy').setup({
               -- custom snippets
               require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
 
-              require'luasnip'.filetype_extend(".ejs", {"ejs"})
+              require 'luasnip'.filetype_extend(".ejs", { "ejs" })
             end,
           },
         },
@@ -808,13 +816,13 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   -- 'folke/tokyonight.nvim',
+    --   -- 'folke/tokyonight.nvim',
     -- 'rose-pine/neovim',
     -- as = "rose-pine",
-  --   -- "ramojus/mellifluous.nvim",
-  --   -- "rebelot/kanagawa.nvim",
-  --   -- "neanias/everforest-nvim",
-  --   -- 'AlexvZyl/nordic.nvim',
+    --   -- "ramojus/mellifluous.nvim",
+    --   -- "rebelot/kanagawa.nvim",
+    --   -- "neanias/everforest-nvim",
+    --   -- 'AlexvZyl/nordic.nvim',
     -- "0xstepit/flow.nvim",
     -- priority = 1000, -- Make sure to load this before all the other start plugins.
     -- opts = {}
@@ -881,6 +889,7 @@ require('lazy').setup({
   -- },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    event = "VeryLazy",
     build = ':TSUpdate',
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
@@ -964,6 +973,8 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true -- round indent to sw compatible
 vim.opt.expandtab = true
 
+vim.opt.cmdheight = 0
+
 -- cycle through buffers
 vim.keymap.set({ 'n', 'v' }, "<leader>h", vim.cmd.bprevious)
 vim.keymap.set({ 'n', 'v' }, "<leader>l", vim.cmd.bnext)
@@ -971,8 +982,8 @@ vim.keymap.set({ 'n', 'v' }, "<leader>q", vim.cmd.bdelete)
 
 
 -- move lines up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent=true})
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {silent=true})
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 
 -- returns cursor to where the file was closed
@@ -1009,5 +1020,3 @@ vim.cmd("xnoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
 vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
-
-
