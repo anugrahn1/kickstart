@@ -93,6 +93,10 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Disable Netrw because I am using Oil.nvim
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 
 vim.opt.termguicolors = true
 -- [[ Setting options ]]
@@ -240,7 +244,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',        opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -307,7 +311,8 @@ require('lazy').setup({
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
+    -- event = 'VimEnter',
+    event = 'VeryLazy',
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -728,7 +733,11 @@ require('lazy').setup({
           "nvim-lua/plenary.nvim",
           "hrsh7th/nvim-cmp",
         },
-        opts = {},
+        -- opts = {},
+        config = function()
+          require("codeium").setup({
+          })
+        end,
       },
 
     },
@@ -1015,8 +1024,16 @@ vim.keymap.set('t', '<C-M-j>', '<Down>', { desc = 'Down' })
 vim.keymap.set('t', '<C-M-k>', '<Up>', { desc = 'Up' })
 vim.keymap.set('t', '<C-M-l>', '<Right>', { desc = 'Right' })
 
--- custom line textobject
+
+-- Obsidian Related Settings
+vim.opt.conceallevel = 2
+vim.keymap.set('n', '<leader>on', ':ObsidianNew<CR>', { desc = 'New Obsidian Note' })
+vim.keymap.set('n', '<leader>ob', ':ObsidianBacklinks<CR>', { desc = 'Obsidian Backlinks' })
+vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>', { desc = 'Open Current Buffer Obsidian' })
+
+-- custom line textobject (Not working currently)
 vim.cmd("xnoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
 vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
+
