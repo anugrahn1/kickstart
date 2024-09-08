@@ -271,8 +271,8 @@ return {
     opts = {
       workspaces = {
         {
-          name = "personal",
-          path = "/mnt/c/Users/ppnar/Documents/Anugrah/Notes/Notes/",
+          name = "college",
+          path = "~/Obsidian/College Research/",
         },
         -- {
         --   name = "work",
