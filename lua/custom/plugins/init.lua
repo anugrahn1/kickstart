@@ -290,7 +290,11 @@ return {
       symbol = "│",
       options = { try_as_border = true },
       draw = {
-        delay = 50,
+        delay = 100,
+        priority = 2,
+        animation = function(s, n)
+          return s / n * 20
+        end,
       },
     },
   },
