@@ -740,6 +740,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'lukas-reineke/cmp-rg',
       {
         'Exafunction/codeium.nvim',
 	enabled = true,
@@ -826,6 +827,7 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'rg' },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'codeium' },
