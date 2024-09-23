@@ -1,3 +1,4 @@
+-- gets rid of terinal colorscheme border surrounding neovim instance
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
   callback = function()
     local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
@@ -629,6 +630,7 @@ require('lazy').setup({
             },
           },
         },
+
       }
 
       -- Ensure the servers and tools above are installed
@@ -664,16 +666,17 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    -- lazy = false,
+    lazy = false,
 
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     config = function()
+      log_level = vim.log.levels.DEBUG,
       vim.keymap.set("", "<leader>f", function()
         require("conform").format({ async = true, lsp_fallback = true })
       end)
     end,
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       -- format_on_save = function(bufnr)
       --   -- Disable "format_on_save lsp_fallback" for languages that don't
       --   -- have a well standardized coding style. You can add additional
@@ -686,6 +689,7 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        nix = { 'alejandra' },
         -- Conform can also run multiple formatters sequentially
         python = { "isort", "black" },
         --
@@ -694,6 +698,7 @@ require('lazy').setup({
         javascript = { { "prettierd", "prettier" } },
 
         html = { { "prettierd", "prettier" } },
+        c = { "clang-format"},
       },
     },
   },
@@ -702,7 +707,7 @@ require('lazy').setup({
     -- 'hrsh7th/nvim-cmp',
     'yioneko/nvim-cmp',
     branch = "perf",
-    event = 'InsertEnter',
+    -- event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -1053,3 +1058,4 @@ vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
 vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
 vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
 
+vim.cmd(":e")
