@@ -1,14 +1,18 @@
 -- gets rid of terinal colorscheme border surrounding neovim instance
-vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
   callback = function()
-    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
-    if not normal.bg then return end
-    io.write(string.format("\027]11;#%06x\027\\", normal.bg))
+    local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
+    if not normal.bg then
+      return
+    end
+    io.write(string.format('\027]11;#%06x\027\\', normal.bg))
   end,
 })
 
-vim.api.nvim_create_autocmd("UILeave", {
-  callback = function() io.write("\027]111\027\\") end,
+vim.api.nvim_create_autocmd('UILeave', {
+  callback = function()
+    io.write '\027]111\027\\'
+  end,
 })
 --[[
 
@@ -108,7 +112,6 @@ vim.g.have_nerd_font = true
 -- Disable Netrw because I am using Oil.nvim
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
 
 vim.opt.termguicolors = true
 -- [[ Setting options ]]
@@ -256,7 +259,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -344,7 +347,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -382,7 +385,7 @@ require('lazy').setup({
         },
         pickers = {
           colorscheme = {
-            enable_preview = true
+            enable_preview = true,
           },
         },
         extensions = {
@@ -436,7 +439,7 @@ require('lazy').setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
@@ -447,19 +450,19 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
-        event = "VeryLazy",
+        event = 'VeryLazy',
         opts = {
           notification = {
             window = {
-              winblend = 0 -- make fidget background transparent
+              winblend = 0, -- make fidget background transparent
             },
           },
-        }
+        },
       },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -580,7 +583,7 @@ require('lazy').setup({
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-              print("hints")
+              print 'hints'
             end, '[T]oggle Inlay [H]ints')
           end
         end,
@@ -613,7 +616,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
         --
 
         lua_ls = {
@@ -630,7 +633,6 @@ require('lazy').setup({
             },
           },
         },
-
       }
 
       -- Ensure the servers and tools above are installed
@@ -666,47 +668,65 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    lazy = false,
+    -- lazy = false,
 
     -- event = "VeryLazy",
     config = function()
-      log_level = vim.log.levels.DEBUG,
-      vim.keymap.set("", "<leader>f", function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end)
-    end,
-    opts = {
-      notify_on_error = true,
-      -- format_on_save = function(bufnr)
-      --   -- Disable "format_on_save lsp_fallback" for languages that don't
-      --   -- have a well standardized coding style. You can add additional
-      --   -- languages here or re-enable it for the disabled ones.
-      --   local disable_filetypes = { c = true, cpp = true }
-      --   return {
-      --     timeout_ms = 500,
-      --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-      --   }
-      -- end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        nix = { 'alejandra' },
-        -- Conform can also run multiple formatters sequentially
-        python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        javascript = { { "prettierd", "prettier" } },
+      require('conform').setup {
+        log_level = vim.log.levels.DEBUG,
+        vim.keymap.set('', '<leader>f', function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end),
 
-        html = { { "prettierd", "prettier" } },
-        c = { "clang-format"},
-      },
-    },
+        notify_on_error = true,
+
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          nix = { 'nixfmt' },
+          -- Conform can also run multiple formatters sequentially
+          python = { 'isort', 'black' },
+          --
+          -- You can use a sub-list to tell conform to run *until* a formatter
+          -- is found.
+          javascript = { { 'prettierd', 'prettier' } },
+
+          html = { { 'prettierd', 'prettier' } },
+          c = { 'clang-format' },
+        },
+      }
+    end,
+    -- opts = {
+    --   notify_on_error = true,
+    --   -- format_on_save = function(bufnr)
+    --   --   -- Disable "format_on_save lsp_fallback" for languages that don't
+    --   --   -- have a well standardized coding style. You can add additional
+    --   --   -- languages here or re-enable it for the disabled ones.
+    --   --   local disable_filetypes = { c = true, cpp = true }
+    --   --   return {
+    --   --     timeout_ms = 500,
+    --   --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+    --   --   }
+    --   -- end,
+    --   formatters_by_ft = {
+    --     lua = { 'stylua' },
+    --     nix = { 'nixfmt' },
+    --     -- Conform can also run multiple formatters sequentially
+    --     python = { "isort", "black" },
+    --     --
+    --     -- You can use a sub-list to tell conform to run *until* a formatter
+    --     -- is found.
+    --     javascript = { { "prettierd", "prettier" } },
+    --
+    --     html = { { "prettierd", "prettier" } },
+    --     c = { "clang-format"},
+    --   },
+    -- },
   },
 
   { -- Autocompletion
     -- 'hrsh7th/nvim-cmp',
     'yioneko/nvim-cmp',
-    branch = "perf",
+    branch = 'perf',
     -- event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -731,9 +751,9 @@ require('lazy').setup({
               require('luasnip.loaders.from_vscode').lazy_load()
 
               -- custom snippets
-              require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+              require('luasnip.loaders.from_vscode').lazy_load { paths = { vim.fn.stdpath 'config' .. '/snips' } }
 
-              require 'luasnip'.filetype_extend(".ejs", { "ejs" })
+              require('luasnip').filetype_extend('.ejs', { 'ejs' })
             end,
           },
         },
@@ -748,18 +768,16 @@ require('lazy').setup({
       'lukas-reineke/cmp-rg',
       {
         'Exafunction/codeium.nvim',
-	enabled = true,
+        enabled = true,
         dependencies = {
-          "nvim-lua/plenary.nvim",
+          'nvim-lua/plenary.nvim',
           -- "hrsh7th/nvim-cmp",
         },
         -- opts = {},
         config = function()
-          require("codeium").setup({
-          })
+          require('codeium').setup {}
         end,
       },
-
     },
     config = function()
       -- See `:help cmp`
@@ -775,7 +793,7 @@ require('lazy').setup({
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
         experimental = {
-          ghost_text = true
+          ghost_text = true,
         },
 
         -- For an understanding of why these mappings were
@@ -919,7 +937,7 @@ require('lazy').setup({
   -- },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     build = ':TSUpdate',
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
@@ -1006,15 +1024,13 @@ vim.opt.expandtab = true
 vim.opt.cmdheight = 0
 
 -- cycle through buffers
-vim.keymap.set({ 'n', 'v' }, "<leader>h", vim.cmd.bprevious)
-vim.keymap.set({ 'n', 'v' }, "<leader>l", vim.cmd.bnext)
-vim.keymap.set({ 'n', 'v' }, "<leader>q", vim.cmd.bdelete)
-
+vim.keymap.set({ 'n', 'v' }, '<leader>h', vim.cmd.bprevious)
+vim.keymap.set({ 'n', 'v' }, '<leader>l', vim.cmd.bnext)
+vim.keymap.set({ 'n', 'v' }, '<leader>q', vim.cmd.bdelete)
 
 -- move lines up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
-
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { silent = true })
 
 -- returns cursor to where the file was closed
 vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
@@ -1024,7 +1040,7 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
 })
 
 -- Run code
-vim.keymap.set("n", "<leader>rc", ":RunCode<CR>")
+vim.keymap.set('n', '<leader>rc', ':RunCode<CR>')
 
 -- Navigation in Insert Mode - Taken from mini.basics
 --
@@ -1045,7 +1061,6 @@ vim.keymap.set('t', '<C-M-j>', '<Down>', { desc = 'Down' })
 vim.keymap.set('t', '<C-M-k>', '<Up>', { desc = 'Up' })
 vim.keymap.set('t', '<C-M-l>', '<Right>', { desc = 'Right' })
 
-
 -- Obsidian Related Settings
 vim.opt.conceallevel = 2
 vim.keymap.set('n', '<leader>on', ':ObsidianNew<CR>', { desc = 'New Obsidian Note' })
@@ -1053,9 +1068,9 @@ vim.keymap.set('n', '<leader>ob', ':ObsidianBacklinks<CR>', { desc = 'Obsidian B
 vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>', { desc = 'Open Current Buffer Obsidian' })
 
 -- custom line textobject (Not working currently)
-vim.cmd("xnoremap <silent> il :<c-u>normal! $v^<cr>")
-vim.cmd("onoremap <silent> il :<c-u>normal! $v^<cr>")
-vim.cmd("xnoremap <silent> al :<c-u>normal! $v0<cr>")
-vim.cmd("onoremap <silent> al :<c-u>normal! $v0<cr>")
+vim.cmd 'xnoremap <silent> il :<c-u>normal! $v^<cr>'
+vim.cmd 'onoremap <silent> il :<c-u>normal! $v^<cr>'
+vim.cmd 'xnoremap <silent> al :<c-u>normal! $v0<cr>'
+vim.cmd 'onoremap <silent> al :<c-u>normal! $v0<cr>'
 
-vim.cmd(":e")
+-- vim.cmd(":e")
