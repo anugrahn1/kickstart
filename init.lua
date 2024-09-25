@@ -727,7 +727,7 @@ require('lazy').setup({
     -- 'hrsh7th/nvim-cmp',
     'yioneko/nvim-cmp',
     branch = 'perf',
-    -- event = 'InsertEnter',
+    event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -768,7 +768,7 @@ require('lazy').setup({
       'lukas-reineke/cmp-rg',
       {
         'Exafunction/codeium.nvim',
-        enabled = true,
+        enabled = false,
         dependencies = {
           'nvim-lua/plenary.nvim',
           -- "hrsh7th/nvim-cmp",

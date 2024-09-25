@@ -5,9 +5,9 @@
 return {
   {
     'stevearc/oil.nvim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     config = function()
-      require("oil").setup({
+      require('oil').setup {
         default_file_explorer = true,
         skip_confirm_for_simple_edits = true,
 
@@ -16,7 +16,7 @@ return {
           show_hidden = true,
           -- This function defines what is considered a "hidden" file
           is_hidden_file = function(name, bufnr)
-            return vim.startswith(name, ".")
+            return vim.startswith(name, '.')
           end,
           -- This function defines what will never be shown, even when `show_hidden` is set
           is_always_hidden = function(name, bufnr)
@@ -25,86 +25,97 @@ return {
         },
         use_default_keymaps = false,
         keymaps = {
-          ["<CR>"] = "actions.select",
-          ["-"] = "actions.parent",
-          ["<C-c>"] = "actions.close",
-
-        }
-      })
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+          ['<CR>'] = 'actions.select',
+          ['-'] = 'actions.parent',
+          ['<C-c>'] = 'actions.close',
+        },
+      }
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
     end,
     -- Optional dependencies
-    dependencies = { "echasnovski/mini.icons" },
+    dependencies = { 'echasnovski/mini.icons' },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
 
   {
-    "nvim-neorg/neorg",
+    'nvim-neorg/neorg',
     -- lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     event = 'VeryLazy',
-    version = "*", -- Pin Neorg to the latest stable release
+    version = '*', -- Pin Neorg to the latest stable release
     config = function()
-      require("neorg").setup({
+      require('neorg').setup {
         load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.dirman"] = {
+          ['core.defaults'] = {},
+          ['core.concealer'] = {},
+          ['core.dirman'] = {
             config = {
               workspaces = {
-                notes = "~/notes/",
+                notes = '~/notes/',
               },
-              default_workspace = "notes",
+              default_workspace = 'notes',
             },
           },
         },
-      })
+      }
     end,
   },
 
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = "VeryLazy",
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'VeryLazy',
     config = function()
-      local harpoon = require("harpoon")
+      local harpoon = require 'harpoon'
       harpoon:setup()
 
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-      vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-      vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-      vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
-      vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end)
-      vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end)
+      vim.keymap.set('n', '<C-e>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+      vim.keymap.set('n', '<C-h>', function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set('n', '<C-j>', function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set('n', '<C-k>', function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set('n', '<C-l>', function()
+        harpoon:list():select(4)
+      end)
     end,
   },
 
   {
-    "numToStr/FTerm.nvim",
-    event = "VeryLazy",
+    'numToStr/FTerm.nvim',
+    event = 'VeryLazy',
     config = function()
       vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
       vim.api.nvim_set_keymap('t', '<C-c>', '<C-\\><C-n>', { noremap = true })
       vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
-      vim.keymap.set({ 'n', 't' }, "<C-\\>", vim.cmd.FTermToggle)
-    end
-  },
-
-  {
-    "VonHeikemen/searchbox.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    event = "VeryLazy",
-    config = function()
-      vim.keymap.set("n", "<leader>r", vim.cmd.SearchBoxReplace)
-      vim.keymap.set("n", "<leader>R", ":SearchBoxReplace confirm=menu <CR>")
+      vim.keymap.set({ 'n', 't' }, '<C-\\>', vim.cmd.FTermToggle)
     end,
   },
 
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    'VonHeikemen/searchbox.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    event = 'VeryLazy',
+    config = function()
+      vim.keymap.set('n', '<leader>r', vim.cmd.SearchBoxReplace)
+      vim.keymap.set('n', '<leader>R', ':SearchBoxReplace confirm=menu <CR>')
+    end,
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     -- event = "ColorScheme",
-    event = "VeryLazy",
+    event = 'VeryLazy',
     config = function()
       require('lualine').setup {
         options = {
@@ -123,7 +134,7 @@ return {
             statusline = 1000,
             tabline = 1000,
             winbar = 1000,
-          }
+          },
         },
         sections = {
           lualine_a = { 'mode' },
@@ -139,121 +150,121 @@ return {
           lualine_c = { 'filename' },
           lualine_x = { 'location' },
           lualine_y = {},
-          lualine_z = {}
+          lualine_z = {},
         },
         tabline = {},
         winbar = {},
         inactive_winbar = {},
-        extensions = {}
+        extensions = {},
       }
-    end
+    end,
   },
 
   {
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
     opts = {}, -- for default options, refer to the configuration section for custom setup.
-    event = "VeryLazy",
-    cmd = "Trouble",
+    event = 'VeryLazy',
+    cmd = 'Trouble',
     keys = {
       {
-        "<leader>xX",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
+        '<leader>xX',
+        '<cmd>Trouble diagnostics toggle<cr>',
+        desc = 'Diagnostics (Trouble)',
       },
       {
-        "<leader>xx",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
+        '<leader>xx',
+        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+        desc = 'Buffer Diagnostics (Trouble)',
       },
       {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
+        '<leader>cs',
+        '<cmd>Trouble symbols toggle focus=false<cr>',
+        desc = 'Symbols (Trouble)',
       },
       {
-        "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
+        '<leader>cl',
+        '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+        desc = 'LSP Definitions / references / ... (Trouble)',
       },
       {
-        "<leader>xL",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
+        '<leader>xL',
+        '<cmd>Trouble loclist toggle<cr>',
+        desc = 'Location List (Trouble)',
       },
       {
-        "<leader>xQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
+        '<leader>xQ',
+        '<cmd>Trouble qflist toggle<cr>',
+        desc = 'Quickfix List (Trouble)',
       },
     },
   },
 
   {
-    "CRAG666/code_runner.nvim",
-    event = "VeryLazy",
-    config = true
+    'CRAG666/code_runner.nvim',
+    event = 'VeryLazy',
+    config = true,
   },
 
   {
     'echasnovski/mini.basics',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     version = false,
     opts = {
       options = {
-        basic = false
+        basic = false,
       },
       mappings = {
         basic = true,
       },
       autocommands = {
-        basic = false
+        basic = false,
       },
     },
   },
 
   {
     'echasnovski/mini.ai',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     version = false,
     opts = {},
   },
 
   {
     'echasnovski/mini.surround',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     version = false,
-    opts = {}
+    opts = {},
   },
   {
     'mbbill/undotree',
     keys = {
-      { "<leader>ut", ":UndotreeToggle<CR>", desc = "Toggle UndoTree" }
+      { '<leader>ut', ':UndotreeToggle<CR>', desc = 'Toggle UndoTree' },
     },
     config = function()
       -- require('undotree').setup({})
     end,
   },
   {
-    "leath-dub/snipe.nvim",
-    event = "VeryLazy",
+    'leath-dub/snipe.nvim',
+    event = 'VeryLazy',
     config = function()
-      local snipe = require("snipe")
+      local snipe = require 'snipe'
       snipe.setup()
-      vim.keymap.set("n", "<leader>b", snipe.create_buffer_menu_toggler())
-    end
+      vim.keymap.set('n', '<leader>b', snipe.create_buffer_menu_toggler())
+    end,
   },
   {
     'echasnovski/mini.splitjoin',
-    event = "VeryLazy",
+    event = 'VeryLazy',
     version = false,
-    opts = {}
+    opts = {},
   },
 
   {
-    "epwalsh/obsidian.nvim",
-    version = "*", -- recommended, use latest release instead of latest commit
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
     lazy = true,
-    ft = "markdown",
+    ft = 'markdown',
     -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
     -- event = {
     --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
@@ -264,15 +275,15 @@ return {
     -- },
     dependencies = {
       -- Required.
-      "nvim-lua/plenary.nvim",
+      'nvim-lua/plenary.nvim',
 
       -- see below for full list of optional dependencies 👇
     },
     opts = {
       workspaces = {
         {
-          name = "college",
-          path = "~/Obsidian/College Research/",
+          name = 'college',
+          path = '~/Obsidian/College Research/',
         },
         -- {
         --   name = "work",
@@ -285,9 +296,9 @@ return {
   },
 
   {
-    "echasnovski/mini.indentscope",
+    'echasnovski/mini.indentscope',
     opts = {
-      symbol = "│",
+      symbol = '│',
       options = { try_as_border = true },
       draw = {
         delay = 100,
@@ -300,19 +311,30 @@ return {
   },
 
   {
-    "OXY2DEV/markview.nvim",
+    'OXY2DEV/markview.nvim',
     -- lazy = false,      -- Recommended
-    ft = "markdown", -- If you decide to lazy-load anyway
+    ft = 'markdown', -- If you decide to lazy-load anyway
 
     dependencies = {
-        -- You will not need this if you installed the
-        -- parsers manually
-        -- Or if the parsers are in your $RUNTIMEPATH
-        "nvim-treesitter/nvim-treesitter",
+      -- You will not need this if you installed the
+      -- parsers manually
+      -- Or if the parsers are in your $RUNTIMEPATH
+      'nvim-treesitter/nvim-treesitter',
 
-        "nvim-tree/nvim-web-devicons"
+      'nvim-tree/nvim-web-devicons',
     },
   },
 
-
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy', -- Or `LspAttach`
+    enabled = false, -- looks weird
+    config = function()
+      require('tiny-inline-diagnostic').setup {
+        options = {
+          multilines = true;
+        },
+      }
+    end,
+  },
 }
