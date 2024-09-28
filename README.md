@@ -1,9 +1,5 @@
 # kickstart.nvim
 
-## Bugs
-
-Need to type `:e` for some reason for lsp and diagnostics to work
-
 ## Introduction
 
 A starting point for Neovim that is:
