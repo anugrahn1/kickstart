@@ -980,7 +980,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -1074,3 +1074,19 @@ vim.cmd 'xnoremap <silent> al :<c-u>normal! $v0<cr>'
 vim.cmd 'onoremap <silent> al :<c-u>normal! $v0<cr>'
 
 -- vim.cmd(":e")
+--
+--
+local lspOn = true
+local messageLevel = 2
+local fidgetOptions = {ttl = 3,key = "virtual_text" }
+vim.keymap.set({ 'n', 'v' }, '<leader>ls', function()
+  if lspOn then
+    vim.diagnostic.config { virtual_text = false }
+    lspOn = false
+    require('fidget').notify("Virtual Text Disabled", messageLevel, fidgetOptions)
+  else
+    vim.diagnostic.config { virtual_text = true }
+    lspOn = true
+    require('fidget').notify("Virtual Text Enabled", messageLevel, fidgetOptions)
+  end
+end, {desc = "Toggle Virtual Text"})
