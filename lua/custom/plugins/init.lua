@@ -324,17 +324,4 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
   },
-
-  {
-    'rachartier/tiny-inline-diagnostic.nvim',
-    event = 'VeryLazy', -- Or `LspAttach`
-    enabled = false, -- looks weird
-    config = function()
-      require('tiny-inline-diagnostic').setup {
-        options = {
-          multilines = true;
-        },
-      }
-    end,
-  },
 }
