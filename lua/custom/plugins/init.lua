@@ -113,6 +113,7 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
+    enabled = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     -- event = "ColorScheme",
     event = 'VeryLazy',
@@ -324,4 +325,25 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
   },
+
+  {
+    'nvchad/ui',
+    config = function()
+      require 'nvchad'
+    end,
+  },
+
+  {
+    'nvchad/base46',
+    lazy = true,
+    build = function()
+      require('base46').load_all_highlights()
+    end,
+  },
+
+  {
+    'nvchad/volt',
+    lazy = true,
+  },
+
 }
