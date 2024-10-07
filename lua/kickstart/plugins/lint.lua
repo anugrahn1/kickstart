@@ -9,7 +9,8 @@ return {
         -- markdown = { 'markdownlint' },
         -- nix = { 'nix' },
         python = { 'pylint' },
-        c = {'cpplint'},
+        c = { 'cpplint' },
+        javascript = { 'eslint_d' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -57,7 +58,6 @@ return {
       vim.keymap.set('n', '<leader>l', function()
         lint.try_lint()
       end, { desc = 'Trigger linting for current file' })
-
     end,
   },
 }

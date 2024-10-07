@@ -694,9 +694,9 @@ require('lazy').setup({
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
-          javascript = { { 'prettierd', 'prettier' } },
+          javascript = {  'prettierd', 'prettier'  },
 
-          html = { { 'prettierd', 'prettier' } },
+          html = {  'prettierd', 'prettier'  },
           c = { 'clang-format' },
         },
       }
@@ -956,6 +956,7 @@ end, { desc = "Change Colorscheme using Volt"} )
 -- vim.cmd 'xnoremap <silent> al :<c-u>normal! $v0<cr>'
 -- vim.cmd 'onoremap <silent> al :<c-u>normal! $v0<cr>'
 
+vim.keymap.set({'i', 'n', 'v'}, '<C-c>', '<Esc>')
 
 -- vim.cmd(":e")
 --

@@ -346,4 +346,11 @@ return {
     lazy = true,
   },
 
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
+  },
 }
