@@ -4,7 +4,7 @@ LSP_HI = "#ffffff"
 
 M.base46 = {
   theme = 'catppuccin',
-  -- transparency = true,
+  transparency = false,
   hl_override = {
     -- Normal = { bg = 'none'},
     -- NormalFloat = { bg = 'none'},
