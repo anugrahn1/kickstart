@@ -589,7 +589,19 @@ require('lazy').setup({
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-              print 'hints'
+              -- print 'hints'
+
+              local messageLevel = 2
+              local fidgetOptions = { ttl = 3, key = 'virtual_text' }
+              -- local status = ""
+              -- if vim.lsp.inlay_hint.is_enabled() then
+              --    status = "Enabled"
+              -- else
+              --    status = "Disabled"
+              -- end
+              local status = vim.lsp.inlay_hint.is_enabled() and "Enabled" or "Disabled" -- short hand for above
+
+              require('fidget').notify('Inline Hints ' .. status, messageLevel, fidgetOptions)
             end, '[T]oggle Inlay [H]ints')
           end
         end,
@@ -694,9 +706,9 @@ require('lazy').setup({
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
-          javascript = {  'prettierd', 'prettier'  },
+          javascript = { 'prettierd', 'prettier' },
 
-          html = {  'prettierd', 'prettier'  },
+          html = { 'prettierd', 'prettier' },
           c = { 'clang-format' },
         },
       }
@@ -946,9 +958,9 @@ vim.keymap.set('n', '<leader>on', ':ObsidianNew<CR>', { desc = 'New Obsidian Not
 vim.keymap.set('n', '<leader>ob', ':ObsidianBacklinks<CR>', { desc = 'Obsidian Backlinks' })
 vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>', { desc = 'Open Current Buffer Obsidian' })
 
-vim.keymap.set('n', '<leader>co',function ()
-  require('nvchad.themes').open { style = "flat" }
-end, { desc = "Change Colorscheme using Volt"} )
+vim.keymap.set('n', '<leader>co', function()
+  require('nvchad.themes').open { style = 'flat' }
+end, { desc = 'Change Colorscheme using Volt' })
 
 -- custom line textobject (Not working currently)
 -- vim.cmd 'xnoremap <silent> il :<c-u>normal! $v^<cr>'
@@ -956,7 +968,7 @@ end, { desc = "Change Colorscheme using Volt"} )
 -- vim.cmd 'xnoremap <silent> al :<c-u>normal! $v0<cr>'
 -- vim.cmd 'onoremap <silent> al :<c-u>normal! $v0<cr>'
 
-vim.keymap.set({'i', 'n', 'v'}, '<C-c>', '<Esc>')
+vim.keymap.set({ 'i', 'n', 'v' }, '<C-c>', '<Esc>')
 
 -- vim.cmd(":e")
 --
