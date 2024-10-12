@@ -354,6 +354,8 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'jvgrootveld/telescope-zoxide' },
+      { 'nvim-lua/popup.nvim' },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -377,14 +379,16 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local z_utils = require 'telescope._extensions.zoxide.utils'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
+
         defaults = {
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
+          mappings = {
+            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          },
           layout_config = {
             vertical = { width = 0.5 },
           },
@@ -398,12 +402,26 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+
+          zoxide = {
+            prompt_title = '[ Walking on the shoulders of TJ ]',
+            mappings = {
+              default = {
+                after_action = function(selection)
+                  -- keepinsert = true,
+                  print('Update to (' .. selection.z_score .. ') ' .. selection.path)
+                  require 'telescope.builtin'.find_files({ cwd = selection.path })
+                end,
+              },
+            },
+          },
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'zoxide')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -440,6 +458,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>nc', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set("n", "<leader>cw", require("telescope").extensions.zoxide.list)
     end,
   },
 
@@ -599,7 +619,7 @@ require('lazy').setup({
               -- else
               --    status = "Disabled"
               -- end
-              local status = vim.lsp.inlay_hint.is_enabled() and "Enabled" or "Disabled" -- short hand for above
+              local status = vim.lsp.inlay_hint.is_enabled() and 'Enabled' or 'Disabled' -- short hand for above
 
               require('fidget').notify('Inline Hints ' .. status, messageLevel, fidgetOptions)
             end, '[T]oggle Inlay [H]ints')

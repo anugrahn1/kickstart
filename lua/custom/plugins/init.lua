@@ -20,7 +20,7 @@ return {
           end,
           -- This function defines what will never be shown, even when `show_hidden` is set
           is_always_hidden = function(name, bufnr)
-            return false
+            return name == '.git' -- hide .git folder in Oil.nvim
           end,
         },
         use_default_keymaps = false,
@@ -28,6 +28,9 @@ return {
           ['<CR>'] = 'actions.select',
           ['-'] = 'actions.parent',
           ['<C-c>'] = 'actions.close',
+          ['<C-s>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
+          ['<C-h>'] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
+          ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory', mode = 'n' }, -- changes current working directory
         },
       }
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
@@ -339,29 +342,28 @@ return {
     },
     opts = {
       bar = {
-        sources = 
-          function(buf, _)
-            local sources = require 'dropbar.sources'
-            local utils = require 'dropbar.utils'
-            if vim.bo[buf].ft == 'markdown' then
-              return {
-                sources.path,
-                sources.markdown,
-              }
-            end
-            if vim.bo[buf].buftype == 'terminal' then
-              return {
-                sources.terminal,
-              }
-            end
+        sources = function(buf, _)
+          local sources = require 'dropbar.sources'
+          local utils = require 'dropbar.utils'
+          if vim.bo[buf].ft == 'markdown' then
             return {
               sources.path,
-              -- utils.source.fallback {
-              --   sources.lsp,
-              --   sources.treesitter,
-              -- },
+              sources.markdown,
             }
-          end,
+          end
+          if vim.bo[buf].buftype == 'terminal' then
+            return {
+              sources.terminal,
+            }
+          end
+          return {
+            sources.path,
+            -- utils.source.fallback {
+            --   sources.lsp,
+            --   sources.treesitter,
+            -- },
+          }
+        end,
       },
     },
   },
