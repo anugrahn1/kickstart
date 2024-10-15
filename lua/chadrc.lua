@@ -1,6 +1,5 @@
 local M = {}
 
-LSP_HI = "#ffffff"
 
 M.base46 = {
   theme = 'catppuccin',

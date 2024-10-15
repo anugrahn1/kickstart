@@ -1,18 +1,16 @@
-return
-    {
-        "catppuccin/nvim",
-        enabled = false,
-        name = "catppuccin",
-        priority = 1000,
-        config = function()
-            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-            vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#330000" })
-            vim.api.nvim_set_hl(0,"TelescopeNormal",{bg="none"})
-            vim.cmd.colorscheme "catppuccin"
-
-        end
-    }
+return {
+  'catppuccin/nvim',
+  enabled = false,
+  name = 'catppuccin',
+  priority = 1000,
+  config = function()
+    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#330000' })
+    vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+    vim.cmd.colorscheme 'catppuccin'
+  end,
+}
 -- {
 --   'sainnhe/gruvbox-material',
 --   -- lazy = false,
@@ -28,8 +26,6 @@ return
 --     vim.cmd.colorscheme('gruvbox-material')
 --   end
 -- }
-
-
 
 -- {
 --   "rose-pine/neovim",
@@ -66,4 +62,3 @@ return
 --     hide_fill_chars = true,
 --   }
 -- }
-

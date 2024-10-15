@@ -72,6 +72,7 @@ return {
 
   {
     'numToStr/FTerm.nvim',
+    enabled = false,
     event = 'VeryLazy',
     config = function()
       vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
@@ -182,6 +183,7 @@ return {
 
   {
     'CRAG666/code_runner.nvim',
+    enabled = false,
     event = 'VeryLazy',
     config = true,
   },
@@ -304,6 +306,9 @@ return {
 
       'nvim-tree/nvim-web-devicons',
     },
+    keymaps = {
+      vim.keymap.set('n', '<leader>ma', ':Markview splitToggle<CR>'),
+    },
   },
 
   {
@@ -366,5 +371,13 @@ return {
         end,
       },
     },
+  },
+
+  {
+    'anugrahn1/better-gf',
+    event = 'VeryLazy',
+    config = function ()
+      require('better_gf').setup()
+    end
   },
 }

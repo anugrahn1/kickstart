@@ -410,7 +410,7 @@ require('lazy').setup({
                 after_action = function(selection)
                   -- keepinsert = true,
                   print('Update to (' .. selection.z_score .. ') ' .. selection.path)
-                  require 'telescope.builtin'.find_files({ cwd = selection.path })
+                  require('telescope.builtin').find_files { cwd = selection.path }
                 end,
               },
             },
@@ -459,12 +459,13 @@ require('lazy').setup({
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
 
-      vim.keymap.set("n", "<leader>cw", require("telescope").extensions.zoxide.list)
+      vim.keymap.set('n', '<leader>cw', require('telescope').extensions.zoxide.list)
     end,
   },
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     -- event = "VeryLazy",
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
@@ -923,14 +924,21 @@ for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
   dofile(vim.g.base46_cache .. v)
   ::continue::
 end
+-- dofile(vim.g.base46_cache .. 'blankline')
+-- dofile(vim.g.base46_cache .. 'cmp')
+-- dofile(vim.g.base46_cache .. 'colors')
+-- dofile(vim.g.base46_cache .. 'defaults')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.shiftround = true -- round indent to sw compatible
 vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 
 vim.opt.cmdheight = 0
 
@@ -1007,3 +1015,9 @@ vim.keymap.set({ 'n', 'v' }, '<leader>ls', function()
     require('fidget').notify('Virtual Text Enabled', messageLevel, fidgetOptions)
   end
 end, { desc = 'Toggle Virtual Text' })
+
+-- Test command for better_gf
+vim.api.nvim_create_user_command('Test', function()
+  package.loaded.better_gf = nil
+  require('better_gf').todo()
+end, {})
