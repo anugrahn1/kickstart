@@ -1,4 +1,4 @@
--- gets rid of terinal colorscheme border surrounding neovim instance
+-- gets rid of terminal colorscheme border surrounding neovim instance
 vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
   callback = function()
     local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
@@ -269,18 +269,18 @@ require('lazy').setup({
   --    require('gitsigns').setup({ ... })
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {
-  --     signs = {
-  --       add = { text = '+' },
-  --       change = { text = '~' },
-  --       delete = { text = '_' },
-  --       topdelete = { text = '‾' },
-  --       changedelete = { text = '~' },
-  --     },
-  --   },
-  -- },
+  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      -- signs = {
+      --   add = { text = '+' },
+      --   change = { text = '~' },
+      --   delete = { text = '_' },
+      --   topdelete = { text = '‾' },
+      --   changedelete = { text = '~' },
+      -- },
+    },
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -1017,7 +1017,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>ls', function()
 end, { desc = 'Toggle Virtual Text' })
 
 -- Test command for better_gf
-vim.api.nvim_create_user_command('Test', function()
-  package.loaded.better_gf = nil
-  require('better_gf').todo()
-end, {})
+-- vim.api.nvim_create_user_command('Test', function()
+--   package.loaded.better_gf = nil
+--   require('better_gf').todo()
+-- end, {})

@@ -54,5 +54,6 @@
   "ui": { "branch": "v3.0", "commit": "4e35d2685e45bfd782caf4d3a160227fd58ca950" },
   "undotree": { "branch": "master", "commit": "78b5241191852ffa9bb5da5ff2ee033160798c3b" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" },
+  "visual-whitespace.nvim": { "branch": "main", "commit": "03b3c509e9378aeb29aeff3d3d053fd533cd4af4" },
   "volt": { "branch": "main", "commit": "43f72b49037c191eb3cfe26ba7a5574b4bfce226" }
 }

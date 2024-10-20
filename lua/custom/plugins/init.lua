@@ -376,8 +376,10 @@ return {
   {
     'anugrahn1/better-gf',
     event = 'VeryLazy',
-    config = function ()
-      require('better_gf').setup()
-    end
+    -- config = function ()
+    --   require('better_gf').setup()
+    -- end
+    opts = {},
   },
+
 }
