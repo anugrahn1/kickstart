@@ -8,7 +8,8 @@ return {
       lint.linters_by_ft = {
         -- markdown = { 'markdownlint' },
         -- nix = { 'nix' },
-        python = { 'pylint' },
+        -- python = { 'pylint' },
+        python = { 'ruff' },
         c = { 'cpplint' },
         -- javascript = { 'eslint_d' },
       }

@@ -8,6 +8,10 @@
       {
         "language": "cpp",
         "path": "./cpp/cpp.json"
+      },
+      {
+        "language": ["markdown", "rmd"],
+        "path": "./markdown/markdown.json"
       }
     ]
   }

@@ -1,16 +1,35 @@
-return {
-  'catppuccin/nvim',
-  enabled = false,
-  name = 'catppuccin',
-  priority = 1000,
-  config = function()
-    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-    vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#330000' })
-    vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
-    vim.cmd.colorscheme 'catppuccin'
-  end,
-}
+-- color = {
+--   'catppuccin/nvim',
+--   enabled = false,
+--   name = 'catppuccin',
+--   priority = 1000,
+--   config = function()
+--     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+--     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+--     vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#330000' })
+--     vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+--     vim.cmd.colorscheme 'catppuccin'
+--   end,
+-- }
+
+-- color = {
+--     "wtfox/jellybeans.nvim",
+--     priority = 1000,
+--     config = function()
+--         require("jellybeans").setup()
+--         vim.cmd.colorscheme("jellybeans")
+--     end,
+-- }
+
+color = {}
+-- color = {
+--   'EdenEast/nightfox.nvim',
+--   config = function()
+--     vim.cmd 'colorscheme carbonfox'
+--   end,
+-- } -- lazy
+return color
+
 -- {
 --   'sainnhe/gruvbox-material',
 --   -- lazy = false,

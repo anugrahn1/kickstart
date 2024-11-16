@@ -463,7 +463,21 @@ require('lazy').setup({
     end,
   },
 
-  { -- LSP Configuration & Plugins
+  -- LSP Configuration & Plugins
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  { 'Bilal2453/luvit-meta', lazy = true },
+  {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     -- event = "VeryLazy",
@@ -486,10 +500,6 @@ require('lazy').setup({
           },
         },
       },
-
-      -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -647,7 +657,9 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        pyright = {},
+        -- pyright = {},
+        ruff_lsp = {},
+        jedi_language_server = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -657,6 +669,26 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        -- nixd = {
+        --   cmd = { 'nixd' },
+        --   settings = {
+        --     nixpkgs = {
+        --       -- expr = 'import (builtins.getFlake "~/.dotfiles").inputs.nixpkgs { }',
+        --       expr = 'import <nixpkgs> { }',
+        --     },
+        --     formatting = {
+        --       command = { 'nixfmt' }, -- or nixfmt or nixpkgs-fmt
+        --     },
+        --     options = {
+        --       nixos = {
+        --         expr = '(builtins.getFlake "~/.dotfiles").nixosConfigurations.nixos.options',
+        --       },
+        --       home_manager = {
+        --         expr = '(builtins.getFlake "~/.dotfiles").homeConfigurations.anugrah.options',
+        --       },
+        --     },
+        --   },
+        -- },
 
         lua_ls = {
           -- cmd = {...},
@@ -702,6 +734,7 @@ require('lazy').setup({
           end,
         },
       }
+      -- require('lspconfig')['nixd'].setup(servers.nixd)
     end,
   },
 
@@ -714,7 +747,7 @@ require('lazy').setup({
       require('conform').setup {
         log_level = vim.log.levels.DEBUG,
         vim.keymap.set('', '<leader>f', function()
-          require('conform').format { async = true, lsp_fallback = true }
+          require('conform').format { async = true, lsp_fallback = false }
         end),
 
         notify_on_error = true,
@@ -723,7 +756,8 @@ require('lazy').setup({
           lua = { 'stylua' },
           nix = { 'nixfmt' },
           -- Conform can also run multiple formatters sequentially
-          python = { 'isort', 'black' },
+          -- python = { 'isort', 'black' },
+          python = { 'ruff_format' },
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
@@ -1021,3 +1055,7 @@ end, { desc = 'Toggle Virtual Text' })
 --   package.loaded.better_gf = nil
 --   require('better_gf').todo()
 -- end, {})
+-- vim.keymap.set('n', 's', require('substitute').operator, { noremap = true })
+-- vim.keymap.set('n', 'ss', require('substitute').line, { noremap = true })
+-- vim.keymap.set('n', 'S', require('substitute').eol, { noremap = true })
+-- vim.keymap.set('x', 's', require('substitute').visual, { noremap = true })

@@ -1,0 +1,42 @@
+{
+  "pause": {
+    "prefix": "pause",
+    "body": "<!-- pause -->",
+    "description": "Pause for presenterm"
+  },
+  "end": {
+    "prefix": "end",
+    "body": "<!-- end_slide -->",
+    "description": "End the slide for presenterm"
+  },
+  "incremental_lists": {
+    "prefix": "inc",
+    "body": "<!-- incremental_lists: true -->",
+    "description": "Incremental Lists for presenterm"
+  },
+  "column layout": {
+    "prefix": "clay",
+    "body": "<!-- column_layout: [${1},${0}] -->",
+    "description": "Column Layout for presenterm"
+  },
+  "column": {
+    "prefix": "col",
+    "body": "<!-- column: ${0} -->",
+    "description": "Coloumns for presenterm"
+  },
+  "reset layout": {
+    "prefix": "res",
+    "body": "<!-- reset_layout -->",
+    "description": "reset layout for presenterm"
+  },
+  "jump to middle": {
+    "prefix": "mid",
+    "body": "<!-- jump_to_middle -->",
+    "description": "jump to middle for presenterm"
+  },
+  "new line": {
+    "prefix": "line",
+    "body": "<!-- new_line -->",
+    "description": "new line for presenterm"
+  }
+}

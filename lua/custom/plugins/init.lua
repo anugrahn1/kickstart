@@ -33,6 +33,7 @@ return {
           ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory', mode = 'n' }, -- changes current working directory
         },
       }
+      -- TODO: make oil window split and toggleable with vim.o.filetype
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
     end,
     -- Optional dependencies
@@ -233,7 +234,7 @@ return {
     config = function()
       local snipe = require 'snipe'
       snipe.setup()
-      vim.keymap.set('n', '<leader>b', snipe.create_buffer_menu_toggler())
+      vim.keymap.set('n', '<leader>b', snipe.open_buffer_menu)
     end,
   },
   {
@@ -306,6 +307,9 @@ return {
 
       'nvim-tree/nvim-web-devicons',
     },
+    config = function ()
+      vim.cmd 'Markview disableAll'
+    end,
     keymaps = {
       vim.keymap.set('n', '<leader>ma', ':Markview splitToggle<CR>'),
     },
@@ -374,12 +378,43 @@ return {
   },
 
   {
-    'anugrahn1/better-gf',
+    -- 'anugrahn1/better-gf',
+    dir = '~/projects/better-gf/',
+
     event = 'VeryLazy',
-    -- config = function ()
-    --   require('better_gf').setup()
-    -- end
+    opts = {
+      use_picker = true,
+    },
+    keys = {
+      { '<leader>w', '<CMD>BetterGF<CR>', desc = 'BetterGF' },
+    },
+  },
+
+  {
+    -- 'anugrahn1/goto-github.nvim',
+    dir = '~/projects/goto-github.nvim/',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      { '<leader>go', '<CMD>OpenGithubLink<CR>', desc = 'GoToGithub' },
+    },
+  },
+
+  {
+    'gbprod/substitute.nvim',
+    enabled = false,
+    opts = {},
+  },
+  {
+    'echasnovski/mini.jump',
+    version = false,
     opts = {},
   },
 
+  {
+    'echasnovski/mini.files',
+    event = 'VeryLazy',
+    version = false,
+    opts = {},
+  },
 }

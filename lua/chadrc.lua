@@ -1,18 +1,19 @@
 local M = {}
 
-
 M.base46 = {
-  theme = 'catppuccin',
+  -- theme = 'dark_horizon',
+  theme = 'jellybeans',
   transparency = false,
   hl_override = {
-    -- Normal = { bg = 'none'},
-    -- NormalFloat = { bg = 'none'},
+    Normal = { bg = '#111111'},
+    NormalFloat = { bg = '#111111'},
     -- LspReferenceWrite = { bg = LSP_HI},
     -- LspReferenceRead = { bg = LSP_HI},
     -- LspReferenceText = { bg = LSP_HI},
+    ['@comment'] = { italic = true }, -- make comments use italics
+    ['@string'] = { fg = '#a6e3a1' }, -- make strings green
   },
 }
-
 
 M.ui = {
   cmp = {
@@ -27,6 +28,6 @@ M.ui = {
 }
 
 M.colorify = {
-  enabled = false
+  enabled = false,
 }
 return M
