@@ -48,8 +48,10 @@ return {
     event = 'VeryLazy',
     config = function()
       local harpoon = require 'harpoon'
+      local harpoon_extensions = require 'harpoon.extensions'
       harpoon:setup()
 
+      harpoon:extend(harpoon_extensions.builtins.highlight_current_file())
       vim.keymap.set('n', '<leader>a', function()
         harpoon:list():add()
       end)
@@ -231,11 +233,18 @@ return {
   {
     'leath-dub/snipe.nvim',
     event = 'VeryLazy',
-    config = function()
-      local snipe = require 'snipe'
-      snipe.setup()
-      vim.keymap.set('n', '<leader>b', snipe.open_buffer_menu)
-    end,
+    keys = {
+      {
+        '<leader>b',
+        function()
+          require('snipe').open_buffer_menu()
+        end,
+        desc = 'Open Snipe buffer menu',
+      },
+    },
+    opts = {
+      sort = 'default',
+    },
   },
   {
     'echasnovski/mini.splitjoin',
@@ -246,6 +255,7 @@ return {
 
   {
     'epwalsh/obsidian.nvim',
+    enabled = false,
     version = '*', -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = 'markdown',
@@ -307,7 +317,7 @@ return {
 
       'nvim-tree/nvim-web-devicons',
     },
-    config = function ()
+    config = function()
       vim.cmd 'Markview disableAll'
     end,
     keymaps = {
@@ -380,7 +390,7 @@ return {
   {
     -- 'anugrahn1/better-gf',
     dir = '~/projects/better-gf/',
-
+    enabled = false,
     event = 'VeryLazy',
     opts = {
       use_picker = true,
@@ -391,8 +401,9 @@ return {
   },
 
   {
-    -- 'anugrahn1/goto-github.nvim',
-    dir = '~/projects/goto-github.nvim/',
+    'anugrahn1/goto-github.nvim',
+    -- dir = '~/projects/goto-github.nvim/',
+    enabled = true,
     event = 'VeryLazy',
     opts = {},
     keys = {
@@ -416,5 +427,41 @@ return {
     event = 'VeryLazy',
     version = false,
     opts = {},
+  },
+  {
+
+    'github/copilot.vim',
+    event = 'VeryLazy',
+    config = function()
+      vim.cmd 'Copilot disable'
+    end,
+    -- version = false,
+    -- opts = {},
+  },
+  {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    enabled = false,
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+    end,
+  },
+  {
+    'linux-cultist/venv-selector.nvim',
+    enabled = false,
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } }, -- optional: you can also use fzf-lua, snacks, mini-pick instead.
+    },
+    ft = 'python', -- Load when opening Python files
+    keys = {
+      { '<leader>v', '<cmd>VenvSelect<cr>' }, -- Open picker on keymap
+    },
+    opts = { -- this can be an empty lua table - just showing below for clarity.
+      search = {}, -- if you add your own searches, they go here.
+      options = {}, -- if you add plugin options, they go here.
+    },
   },
 }

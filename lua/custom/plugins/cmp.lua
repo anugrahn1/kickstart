@@ -136,4 +136,3 @@ return { -- Autocompletion
     cmp.setup(options)
   end,
 }
-

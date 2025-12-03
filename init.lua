@@ -334,7 +334,8 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     -- event = 'VimEnter',
     event = 'VeryLazy',
-    branch = '0.1.x',
+    tag = 'v0.1.9',
+    -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -404,7 +405,7 @@ require('lazy').setup({
           },
 
           zoxide = {
-            prompt_title = '[ Walking on the shoulders of TJ ]',
+            prompt_title = 'WE never close neovim 😝',
             mappings = {
               default = {
                 after_action = function(selection)
@@ -570,7 +571,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('R', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('R', vim.lsp.buf.rename, '[R]ename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -657,9 +658,19 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        -- pyright = {},
-        ruff_lsp = {},
-        jedi_language_server = {},
+        pyright = {},
+        -- ruff = {},
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       analysis = {
+        --         typeCheckingMode = 'basic',
+        --       },
+        --     },
+        --   },
+        -- },
+        -- ruff_lsp = {},
+        -- jedi_language_server = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -757,7 +768,8 @@ require('lazy').setup({
           nix = { 'nixfmt' },
           -- Conform can also run multiple formatters sequentially
           -- python = { 'isort', 'black' },
-          python = { 'ruff_format' },
+          -- python = { 'ruff_format' },
+          python = { 'black' },
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.

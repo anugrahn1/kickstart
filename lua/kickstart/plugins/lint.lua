@@ -9,8 +9,8 @@ return {
         -- markdown = { 'markdownlint' },
         -- nix = { 'nix' },
         -- python = { 'pylint' },
-        python = { 'ruff' },
-        c = { 'cpplint' },
+        -- python = { 'ruff' },
+        -- c = { 'cpplint' },
         -- javascript = { 'eslint_d' },
       }
 
